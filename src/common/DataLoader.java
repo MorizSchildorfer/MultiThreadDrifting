@@ -8,13 +8,12 @@ import java.util.List;
 import java.io.EOFException;
 
 public class DataLoader {
-    private static List<Long> longs;
+    public static List<Long> getLongs(String fileName) {
+        List<Long> longs = new ArrayList<Long>();
 
-    public static void main(String[] args) {
         try {
-            FileInputStream fileInputStream = new FileInputStream("array.bin");
+            FileInputStream fileInputStream = new FileInputStream(fileName);
             DataInputStream dataInputStream = new DataInputStream(fileInputStream);
-            longs = new ArrayList<Long>();
 
             try {
                 while (true) {
@@ -23,13 +22,12 @@ public class DataLoader {
                 }
             } catch (EOFException exception) {
                 fileInputStream.close();
+                return longs;
             }
         } catch (IOException exception) {
             System.err.println(exception);
         }
-    }
 
-    public static List<Long> getLongs() {
         return longs;
     }
 }
